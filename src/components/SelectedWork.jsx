@@ -1,5 +1,7 @@
 import React from 'react';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Rocket } from 'lucide-react';
+import { motion } from 'framer-motion';
+import AnimatedSection from './AnimatedSection';
 
 const projects = [
   {
@@ -38,18 +40,31 @@ const projects = [
 
 const SelectedWork = () => {
   return (
-    <section id="work" className="relative mx-auto max-w-6xl px-6 py-20">
-      <div className="mb-10">
-        <h2 className="text-2xl font-semibold text-white sm:text-3xl">Selected Work</h2>
+    <AnimatedSection id="work" className="relative mx-auto max-w-6xl px-6 py-20" delay={0.1}>
+      <motion.div
+        initial={{ opacity: 0, y: 12, filter: 'blur(6px)' }}
+        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        viewport={{ once: true, margin: '-10% 0px -10% 0px' }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="mb-10"
+      >
+        <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs text-white/80 backdrop-blur">
+          <Rocket size={14} /> Highlights
+        </div>
+        <h2 className="mt-3 text-2xl font-semibold text-white sm:text-3xl">Selected Work</h2>
         <p className="mt-2 text-white/70">
           A few highlights from recent projects focused on UX, performance, and clean design.
         </p>
-      </div>
+      </motion.div>
 
       <div className="grid gap-6 sm:grid-cols-2">
-        {projects.map((p) => (
-          <div
+        {projects.map((p, i) => (
+          <motion.div
             key={p.title}
+            initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            viewport={{ once: true, margin: '-10% 0px -10% 0px' }}
+            transition={{ duration: 0.65, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
             className="group rounded-xl border border-white/10 bg-white/5 p-5 backdrop-blur transition hover:bg-white/10"
           >
             <div className="flex items-start justify-between gap-4">
@@ -67,10 +82,10 @@ const SelectedWork = () => {
             </div>
             <p className="mt-3 text-sm text-white/80">{p.description}</p>
             <p className="mt-3 text-xs text-white/60">Tech: {p.tech}</p>
-          </div>
+          </motion.div>
         ))}
       </div>
-    </section>
+    </AnimatedSection>
   );
 };
 
